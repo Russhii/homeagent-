@@ -1,52 +1,5 @@
-import WorkerCard from './WorkerCard'
-
-const workers = [
-  {
-    id: 1,
-    name: 'Ramesh Patil',
-    service: 'Plumber',
-    price: 300,
-    rating: 4.8,
-    area: 'Pimpri, Pune',
-    phone: '9876543210'
-  },
-  {
-    id: 2,
-    name: 'Suresh Kumar',
-    service: 'Electrician',
-    price: 350,
-    rating: 4.6,
-    area: 'Chinchwad, Pune',
-    phone: '9876543211'
-  },
-  {
-    id: 3,
-    name: 'Mahesh Jadhav',
-    service: 'Carpenter',
-    price: 400,
-    rating: 4.9,
-    area: 'Akurdi, Pune',
-    phone: '9876543212'
-  },
-  {
-    id: 4,
-    name: 'Ganesh Shinde',
-    service: 'Painter',
-    price: 250,
-    rating: 4.5,
-    area: 'Nigdi, Pune',
-    phone: '9876543213'
-  },
-  {
-    id:5,
-    name:"Aditya Raj",
-    service:'AC Repair',
-    price:500,
-    rating:4.7,
-    area:'Dhayari',
-    phone:'9823490433'
-  },
-]
+import { Link } from 'react-router-dom'
+import workers from '../data/workers'
 
 function WorkersList() {
   return (
@@ -55,15 +8,26 @@ function WorkersList() {
       <p style={styles.subtext}>Verified professionals ready to help</p>
       <div style={styles.grid}>
         {workers.map((worker) => (
-          <WorkerCard
-            key={worker.id}
-            name={worker.name}
-            service={worker.service}
-            price={worker.price}
-            rating={worker.rating}
-            area={worker.area}
-            phone={worker.phone}
-          />
+          <div key={worker.id} style={styles.card}>
+            <div style={styles.avatar}>{worker.name.charAt(0)}</div>
+            <div style={styles.info}>
+              <h3 style={styles.name}>{worker.name}</h3>
+              <p style={styles.service}>🔧 {worker.service}</p>
+              <p style={styles.area}>📍 {worker.area}</p>
+              <div style={styles.row}>
+                <span style={styles.rating}>⭐ {worker.rating}</span>
+                <span style={styles.price}>₹{worker.price}/hr</span>
+              </div>
+              <div style={styles.buttons}>
+                <a href={`tel:${worker.phone}`} style={styles.callBtn}>
+                  📞 Call Now
+                </a>
+                <Link to={`/worker/${worker.id}`} style={styles.profileBtn}>
+                  View Profile
+                </Link>
+              </div>
+            </div>
+          </div>
         ))}
       </div>
     </div>
@@ -93,6 +57,88 @@ const styles = {
     maxWidth: '900px',
     margin: '0 auto',
   },
+  card: {
+    backgroundColor: 'white',
+    borderRadius: '12px',
+    padding: '20px',
+    display: 'flex',
+    gap: '20px',
+    boxShadow: '0 2px 10px rgba(0,0,0,0.08)',
+    alignItems: 'flex-start',
+    textAlign: 'left',
+  },
+  avatar: {
+    width: '60px',
+    height: '60px',
+    borderRadius: '50%',
+    backgroundColor: '#1a1a2e',
+    color: 'white',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: '24px',
+    fontWeight: 'bold',
+    flexShrink: 0,
+  },
+  info: { flex: 1 },
+  name: {
+    fontSize: '18px',
+    color: '#1a1a2e',
+    marginBottom: '5px',
+  },
+  service: {
+    color: '#666',
+    fontSize: '14px',
+    marginBottom: '4px',
+  },
+  area: {
+    color: '#666',
+    fontSize: '14px',
+    marginBottom: '10px',
+  },
+  row: {
+    display: 'flex',
+    gap: '15px',
+    marginBottom: '15px',
+    alignItems: 'center',
+  },
+  rating: {
+    backgroundColor: '#fff3cd',
+    padding: '3px 10px',
+    borderRadius: '20px',
+    fontSize: '14px',
+    fontWeight: 'bold',
+  },
+  price: {
+    backgroundColor: '#d4edda',
+    padding: '3px 10px',
+    borderRadius: '20px',
+    fontSize: '14px',
+    fontWeight: 'bold',
+    color: '#155724',
+  },
+  buttons: {
+    display: 'flex',
+    gap: '10px',
+  },
+  callBtn: {
+    backgroundColor: '#e94560',
+    color: 'white',
+    padding: '8px 16px',
+    borderRadius: '8px',
+    textDecoration: 'none',
+    fontSize: '14px',
+    fontWeight: 'bold',
+  },
+  profileBtn: {
+    backgroundColor: '#1a1a2e',
+    color: 'white',
+    padding: '8px 16px',
+    borderRadius: '8px',
+    textDecoration: 'none',
+    fontSize: '14px',
+    fontWeight: 'bold',
+  }
 }
 
 export default WorkersList
